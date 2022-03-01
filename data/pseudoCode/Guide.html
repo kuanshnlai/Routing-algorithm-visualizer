@@ -1,0 +1,60 @@
+<font size = 3.5>Guide</font> <br>
+
+<font size = 3>AdaptiveCS</font> <br>
+
+main(Start,Des,MinSize): <br>
+    V_cur = Start<br>
+    N_cur = getNeighbor(V_cur)<br>
+    while V_cur != Des:<br>
+        if greedy success:<br>
+            for n in N_cur:<br>
+                if distance(n,Des) < distance(V_cur,Des):<br>
+                    V_cur = n<br>
+                    N_cur = getNeighbor(V_cur)<br>
+                    break<br>
+        else:<br>
+            V_pre = V_cur<br>
+            stuckNode = V_cur<br>
+            while distance(V_cur,Des) >= distance(V_pre,Des):<br>
+                tmp = V_cur<br>
+                V_cur = att(V_cur,V_pre,N_cur,stuckNode)<br>
+                N_cur = getNeighbor(V_cur)<br>
+                V_pre = tmp<br>
+
+att(V_cur,N_cur,V_pre,stuckNode,minSize):<br>
+    //V_k     : pseudo next node<br>
+    //V_next  : real next node<br>
+    
+    V_k = get_longest_neighbor(V_cur)<br>
+    r = max(minSize,distance(V_cur,V_k))<br>
+    end_point = chooseSP(V_pre,stuckNode)<br>
+    V_next = findNext(V_cur)<br>
+    
+    while V_next != None:<br>
+        if r < minSize:<br>
+            return V_next<br>
+        else if r > minSize and V_next != V_k:<br>
+            V_k = V_next<br>
+            r = max(distance(V_cur,V_k),minSize)<br>
+            V_next = findNext(V_cur)<br>
+        else if r > minSize and V_next == V_k:<br>
+            V_next = eSW(V_cur,N_cur,V_pre,V_k)<br>
+            if V_next == V_k:<br>
+                return V_next<br>
+            else:<br>
+                r = max(distance(V_cur,V_next),minSize)   <br>
+    return None<br>
+
+eSW(V_cur,N_cur,V_pre,V_k):<br>
+    hitNode = V_k<br>
+    newR = distance(V_cur,V_k)<br>
+    ratio = 0.9 <br>
+    for theta in range(360):<br>    
+        newR *= ratio<br>
+        if curve hit node j:<br>
+            hitNode = j<br>
+            break<br>
+        if newR < minSize:<br>
+            break<br>
+    
+    return hitNode<br>

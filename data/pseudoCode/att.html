@@ -1,0 +1,23 @@
+att(V_cur,N_cur,V_pre,stuckNode,minSize):<br>
+    //V_k     : pseudo next node<br>
+    //V_next  : real next node<br>
+    V_k = get_longest_neighbor(V_cur)<br>
+    r = max(minSize,distance(V_cur,V_k))<br>
+    end_point = chooseSP(V_pre,stuckNode)<br>
+    V_next = findNext(V_cur)<br>
+    
+    while V_next != None:<br>
+        if r < minSize:<br>
+            return V_next<br>
+        elif r > minSize and V_next != V_k:<br>
+            V_k = V_next<br>
+            r = max(dis(V_k,V_cur),minSize)<br>
+            V_next = findNext(V_cur)<br>
+        elif r > minSize and V_next == V_k:<br>
+            V_next = eSW(...)<br>
+            if V_next == V_k:<br>
+                return V_next<br>
+            else:<br>
+                r = max(dis(V_cur,V_next),minSize)<br>   
+    return None<br>
+    <a href="adCS.html">back</a><br>
